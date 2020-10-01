@@ -11,7 +11,7 @@ const ngrok=require('ngrok');
 const authRoute = require('./routes/autho');
 
 
-
+//initialize routes
 dotenv.config();
 
 //connecting to database
@@ -19,6 +19,9 @@ mongoose.connect(process.env.DB_CONNECT, {useNewUrlParser: true, useUnifiedTopol
 () => {
     console.log("CONNECTED TO DB");
 });
+//initialize routes
+app.use('/api',routes);
+
 
 //middleware
 app.use(express.urlencoded({extended : false}));
