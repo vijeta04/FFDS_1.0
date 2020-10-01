@@ -32,13 +32,6 @@ app.use('/api/user', authRoute);
 app.use('api/posts', postRoute);
 
 
-//error handling middleware
-app.use(function(err,req,res,next){
-    //console.log(err);
-    res.status(422).send({error:err.message});
-});
-
-
 app.get('/',(req,res)=>{
     res.status(200).send(`Hi Welcome to the Login and Signup API`);
  });
