@@ -6,12 +6,12 @@ var mongoose = require('mongoose');
 const bodyparser = require('body-parser');
 var dotenv = require('dotenv');
 const postRoute = require('./routes/posts')
-
+const ngrok=require('ngrok');
 //importing routes
 const authRoute = require('./routes/autho');
 
 
-
+//initialize routes
 dotenv.config();
 
 //connecting to database
@@ -19,6 +19,9 @@ mongoose.connect(process.env.DB_CONNECT, {useNewUrlParser: true, useUnifiedTopol
 () => {
     console.log("CONNECTED TO DB");
 });
+//initialize routes
+app.use('/api',routes);
+
 
 //middleware
 app.use(express.urlencoded({extended : false}));
@@ -29,9 +32,6 @@ app.use('/api/user', authRoute);
 app.use('api/posts', postRoute);
 
 
-
-
-
 app.get('/',(req,res)=>{
     res.status(200).send(`Hi Welcome to the Login and Signup API`);
  });
@@ -39,3 +39,7 @@ app.get('/',(req,res)=>{
  app.listen(port,()=>{
     console.log("Server is listening on port", +port)
  });
+ngrok.connect(port)
+.then(URL=>{
+console.log(URL)
+});
